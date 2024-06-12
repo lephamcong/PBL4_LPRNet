@@ -12,8 +12,8 @@
 Đề tài này nhằm triển khai thực hiện triển khai mô hình LPRNet [1] với bộ dữ liệu biển số xe Trung Quốc được tổng hợp từ bộ dữ liệu CCPD2020 [2] và bộ dữ liệu biển số xe Việt Nam được thu thập thông qua ảnh chụp thực tế.
 
 ## Dataset
-#### Bộ dữ liệu biển số xe Trung Quốc:
-#### Bộ dữ liệu biển số xe Việt Nam:
+#### Bộ dữ liệu biển số xe Trung Quốc: https://github.com/lephamcong/PBL4_LPRNet/tree/main/Dataset/BiensoxeTrungQuoc
+#### Bộ dữ liệu biển số xe Việt Nam: 
 
 ## Cấu trúc thư mục
 
