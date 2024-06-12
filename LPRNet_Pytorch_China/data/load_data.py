@@ -36,27 +36,19 @@ class LPRDataLoader(Dataset):
 
     def __getitem__(self, index):
         filename = self.img_paths[index]
-        Image = cv2.imread(filename)
-        height, width, _ = Image.shape
-        if height != self.img_size[1] or width != self.img_size[0]:
-            Image = cv2.resize(Image, self.img_size)
-        Image = self.PreprocFun(Image)
+        image = cv2.imread(filename)
+        image = cv2.resize(image, self.img_size) if (image.shape[0], image.shape[1]) != self.img_size else image
+        image = self.PreprocFun(image)
 
-        basename = os.path.basename(filename)
-        imgname, suffix = os.path.splitext(basename)
-        imgname = imgname.split("-")[0].split("_")[0]
-        label = list()
-        for c in imgname:
-            # one_hot_base = np.zeros(len(CHARS))
-            # one_hot_base[CHARS_DICT[c]] = 1
-            label.append(CHARS_DICT[c])
+        # Tách tên file và lấy nhãn
+        basename = os.path.basename(filename).split('_')[0].split('.')[0]
+        label = [CHARS_DICT[char] for char in basename if char in CHARS_DICT]
 
-        if len(label) == 8:
-            if self.check(label) == False:
-                print(imgname)
-                assert 0, "Error label ^~^!!!"
+        if not 7 <= len(label) <= 9:
+            print(f"Invalid label length for {basename}")
+            return None  # Xử lý tình huống nhãn không hợp lệ
 
-        return Image, label, len(label)
+        return image, label, len(label)
 
     def transform(self, img):
         img = img.astype('float32')
